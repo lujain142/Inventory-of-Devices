@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>جرد الاجهزة</title>
+  <link rel="icon" href="1.png" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Markazi+Text&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; right: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 400px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      text-align: right;
+    }
+    .modal-content h3 {
+      margin-top: 0;
+    }
+    .modal-content input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+    .modal-buttons {
+      text-align: center;
+    }
+    .modal-buttons button {
+      padding: 8px 15px;
+      margin: 0 5px;
+    }
+    /* تأكد أن الـ select و input و كل الحقول له نفس ستايل */
+    input, select {
+      text-align: right;
+    }
+ 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #6495ED;
+}
+.container {
+  position: relative;
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.container header {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+.container .form {
+  margin-top: 30px;
+}
+.form .input-box {
+  width: 100%;
+  margin-top: 20px;
+}
+.input-box label {
+  color: #333;
+}
+.form :where(.input-box input, .select-box) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+.form .gender-box {
+  margin-top: 20px;
+}
+.gender-box h3 {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.form :where(.gender-option, .gender) {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+.form .gender {
+  column-gap: 5px;
+}
+.gender input {
+  accent-color: rgb(130, 106, 251);
+}
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+.gender label {
+  color: #707070;
+}
+.address :where(input, .select-box) {
+  margin-top: 15px;
+}
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #707070;
+  font-size: 1rem;
+}
+.form button {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgb(130, 106, 251);
+}
+.form button:hover {
+  background: rgb(88, 56, 250);
+}
+/*Responsive*/
+@media screen and (max-width: 500px) {
+  .form .column {
+    flex-wrap: wrap;
+  }
+  .form :where(.gender-option, .gender) {
+    row-gap: 15px;
+  }
+}
+  </style>
+</head>
+<body>
+
+  <section class="container">
+    <header>جرد الاجهزة</header>
+    <form action="#" class="form">
+
+  <div class="input-box">
+    <label>الطراز</label>
+    <input type="text" placeholder="مثال:(MAGNA3 100-120 F N)" required name="Model" />
+  </div>
+
+  <div class="column">
+    <div class="select-box">
+      <select id="deviceSelect" name="Manufacturer" required>
+        <option hidden selected>المصنع</option>
+        <option>HP</option>
+        <option>DELL</option>
+        <option value="add-new">أضف مصنع جديد...</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="input-box">
+    <label>المكتب</label>
+    <input type="text" placeholder="413" required name="Room/office Number"/>
+  </div>
+
+  <div class="input-box">
+    <label>الدور</label>
+    <input type="number" placeholder="4" required name="Floors Number"/>
+  </div>
+
+  <div class="column">
+    <div class="select-box">
+      <select name="Building Number" required>
+        <option hidden selected>المبنى</option>
+        <option>100</option>
+        <option>200</option>
+        <option>300</option>
+        <option>400</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="input-box">
+    <label>اسم المستشفى/ مركز الصحي</label>
+    <input type="text" value="التجمع" readonly required name="Hospital / PHC Name" />
+  </div>
+
+  <div class="input-box">
+    <label>التجمع/ المدرية</label>
+    <input type="text" value="التجمع الشرقية" readonly required name="Cluster"/>
+  </div>
+
+  <div class="input-box">
+    <label>المدينة</label>
+    <input type="text" value="الدمام" readonly required name="City" />
+  </div>
+
+  <div class="input-box">
+    <label>المنطقة</label>
+    <input type="text" value="الشرقية" readonly required name="Region" />
+  </div>
+
+  <div class="input-box">
+    <label>الدولة</label>
+    <input type="text" value="المملكة العربية السعودية" readonly required name="Country"/>
+  </div>
+
+  <div class="input-box">
+    <label>مالك الأصل</label>
+    <input type="text" value="وزارة الصحة" readonly required name="Asset Owner" />
+  </div>
+
+  <div class="input-box">
+    <label>رمز الأصل للغرض المحاسبي</label>
+    <input type="number" value="13020401" readonly required name="Asset Code For Accounting Purpose"/>
+  </div>
+
+  <div class="input-box">
+    <label>رمز المجموعة المحاسبية</label>
+    <input type="number" value="01" readonly required name="accounting group Code" />
+  </div>
+
+  <div class="input-box">
+    <label>وصف المجموعة المحاسبية - انجليزي</label>
+    <input type="text" value="PPE" readonly required name="accounting group English Description"/>
+  </div>
+
+  <div class="input-box">
+    <label>وصف المجموعة المحاسبية-عربي</label>
+    <input type="text" value="الالات والمعدات والعقارات" readonly required name="accounting group Arabic Description" />
+  </div>
+
+  <div class="input-box">
+    <label>رمز تصنيف الأصول المستوى الثالث</label>
+    <input type="number" placeholder="04" name="Level 3 FA Module Code" />
+  </div>
+
+  <div class="input-box">
+    <label>رمز تصنيف الأصول المستوى الثالث-انجليزي</label>
+    <input type="text" value="Laptops&Computers" readonly required name="Level 3 FA Module - English Description" />
+  </div>
+
+  <div class="input-box">
+    <label>رمز تصنيف الأصول المستوى الثالث-عربي</label>
+    <input type="text" value="أجهزة الكمبيوتر المحمولة وأجهزة الكمبيوتر المكتبية" readonly required name="Level 3 FA Module - Arabic Description" />
+  </div>
+
+  <div class="input-box">
+    <label>رمز تصنيف الأصول المستوى الثاني</label>
+    <input type="number" value="02" readonly required name="Level 2 FA Module Code"/>
+  </div>
+
+  <div class="input-box">
+    <label>رمز تصنيف الأصول المستوى الثاني-انجليزي</label>
+    <input type="text" value="Office IT and Communication Equipment" readonly required name="Level 2 FA Module - English Description"/>
+  </div>
+
+  <div class="input-box">
+    <label>رمز تصنيف الأصول المستوى الثاني-عربي</label>
+    <input type="text" value="تكنولوجيا المعلومات ومعدات الاتصالات المكتبية" readonly required name="Level 2 FA Module - Arabic Description"/>
+  </div>
+
+  <div class="input-box">
+    <label>رمز تصنيف الأصول المستوى الاول</label>
+    <input type="number" value="13" readonly required name="Level 1 FA Module Code"/>
+  </div>
+
+  <div class="input-box">
+    <label>رمز تصنيف الأصول المستوى الاول-انجليزي</label>
+    <input type="text" value="Information Technology Assets" readonly required name="Level 1 FA Module - English Description"/>
+  </div>
+
+  <div class="input-box">
+    <label>رمز تصنيف الأصول المستوى الاول-عربي</label>
+    <input type="text" value="أصول تقنية المعلومات" readonly required name="Level 1 FA Module - Arabic Description"/>
+  </div>
+
+  <div class="input-box">
+    <label>القسم/الإدارة المسؤولة أو الشخص المسؤول</label>
+    <input type="text" placeholder="ادارة التشغيل والصيانة" required name="Custodian">
+  </div>
+
+  <div class="input-box">
+    <label>رقم المصنع التسلسلي الفريد</label>
+    <input type="text" placeholder="885784" required name="Unique Factory ID (Asset Serial Number)"/>
+  </div>
+
+  <div class="input-box">
+    <label>رقم البطاقة</label>
+    <input type="text" placeholder="48743879" required name="Tag number" />
+  </div>
+
+  <div class="input-box">
+    <label for="asset-type">وصف الأصل</label>
+    <div class="select-box">
+      <select id="asset-type" name="Asset Description" required>
+        <option value="" disabled selected>اختر نوع الأصل</option>
+        <option value="screen">شاشة</option>
+        <option value="computer">كمبيوتر</option>
+        <option value="printer">طابعة</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="input-box">
+    <label>رقم الجهة</label>
+    <input type="number" placeholder="007" required name="Entity Code"/>
+  </div>
+
+  <div class="input-box">
+    <label>اسم الجهة</label>
+    <input type="text" value="وزارة الصحة" readonly required name="Entity"/>
+  </div>
+
+  <button>إرسال</button>
+</form>
+
+  </section>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h3>أدخل اسم المصنع الجديد</h3>
+      <input type="text" id="newFactoryInput" placeholder="اسم المصنع" />
+      <div class="modal-buttons">
+        <button id="modalSaveBtn">حفظ</button>
+        <button id="modalCancelBtn">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // دالة تحويل الأرقام العربية => إنجليزية
+    function arabicToEnglishDigits(str) {
+      const arabicNums = '٠١٢٣٤٥٦٧٨٩'.split('');
+      const englishNums = '0123456789'.split('');
+      return str.replace(/[٠-٩]/g, c => englishNums[arabicNums.indexOf(c)]);
+    }
+
+    // نطبق التحويل على كل input عند تغييره أو ما يدخل فيه المستخدم
+    document.addEventListener('input', function(e) {
+      const target = e.target;
+      // فقط الحقول من نوع النص أو number اللي تحتوي على أرقام
+      if ((target.tagName === 'INPUT' && (target.type === 'text' || target.type === 'number')) ) {
+        // استبدال النص داخل الحقل
+        const start = target.selectionStart;
+        const end = target.selectionEnd;
+        target.value = arabicToEnglishDigits(target.value);
+        // إعادة تحديد المؤشر لو كان مستخدم يكتب
+        target.setSelectionRange(start, end);
+      }
+    });
+
+    const deviceSelect = document.getElementById("deviceSelect");
+    const modal = document.getElementById("modal");
+    const newFactoryInput = document.getElementById("newFactoryInput");
+    const modalSaveBtn = document.getElementById("modalSaveBtn");
+    const modalCancelBtn = document.getElementById("modalCancelBtn");
+
+    deviceSelect.addEventListener("change", function () {
+      if (this.value === "add-new") {
+        modal.style.display = "flex";
+        newFactoryInput.value = "";
+      }
+    });
+
+    modalSaveBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      const newFactory = newFactoryInput.value.trim();
+      if (newFactory) {
+        const option = document.createElement("option");
+        option.text = newFactory;
+        option.value = newFactory;
+        const addNewOption = deviceSelect.querySelector('option[value="add-new"]');
+        deviceSelect.insertBefore(option, addNewOption);
+        deviceSelect.value = newFactory;
+        modal.style.display = "none";
+      } else {
+        alert("الرجاء إدخال اسم المصنع");
+      }
+    });
+
+    modalCancelBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      modal.style.display = "none";
+      deviceSelect.selectedIndex = 0;
+    });
+  </script>
+
+
+
+
+
+
+  <script>
+  const form = document.querySelector("form");
+  const scriptURL = "https://script.google.com/macros/s/AKfycbw2DS_IA-Ku3nTVyP9PdRIfGShvxtsqPAcBk7eIYlsx-lPb3OxqiU1SsU5ug3lmG6FP/exec";
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();  // منع الإرسال الافتراضي
+
+    const formData = new FormData(form);
+
+    fetch(scriptURL, {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.text())
+    .then(text => {
+      alert("تم الإرسال إلى Google Sheets!");
+      form.reset();  // إعادة تهيئة النموذج إذا تحب
+    })
+    .catch(err => {
+      alert("فشل الإرسال: " + err.message);
+    });
+  });
+</script>
+
+
+</body>
+</html>

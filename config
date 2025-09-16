@@ -1,0 +1,14 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "hhh"]
+	url = https://github.com/Hassan-Alzayer/12.git
+	fetch = +refs/heads/*:refs/remotes/hhh/*
+[branch "main"]
+	remote = hhh
+	merge = refs/heads/main
+	vscode-merge-base = hhh/main
